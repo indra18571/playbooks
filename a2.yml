@@ -1,0 +1,18 @@
+---
+- name: Shutdown EC2 Red Hat server
+  hosts: your_ec2_instance
+  gather_facts: False
+
+  tasks:
+    - name: Stop EC2 instance
+      ec2:
+        instance_ids: "i-0489b0f9dbc117ebf"
+        state: stopped
+        region: "eu-west-2"
+        aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+        aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+      register: ec2_instance_state
+
+    - name: Output instance state
+      debug:
+        var: ec2_instance_state
