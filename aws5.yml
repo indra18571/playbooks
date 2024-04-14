@@ -1,13 +1,13 @@
 ---
-- name: Create directory on Red Hat EC2 instance
-  hosts: 35.176.180.40
+- name: create directory on EC2 Red Hat servers
+  hosts: ec2_redhat_servers
   gather_facts: False
   vars:
     ansible_user: ec2-user
     ansible_ssh_private_key_file: ~/.aws/infra-keypair1.pem
 
   tasks:
-    - name: Ensure directory exists
+    - name: create directory
       become: yes
       become_user: root
       file:

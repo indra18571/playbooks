@@ -1,5 +1,5 @@
 ---
-- name: Create directory on Red Hat EC2 instance
+- name: shutdown ser
   hosts: 35.176.180.40
   gather_facts: False
   vars:
@@ -7,10 +7,7 @@
     ansible_ssh_private_key_file: ~/.aws/infra-keypair1.pem
 
   tasks:
-    - name: Ensure directory exists
+    - name: shutdown s
       become: yes
       become_user: root
-      file:
-        path: /home/ec2-user/my_directory
-        state: directory
-        mode: "0755"
+      shell: sudo shutdown now

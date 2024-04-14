@@ -1,18 +1,14 @@
 ---
-- name: Shutdown EC2 Red Hat server
-  hosts: your_ec2_instance
+- name: Stop EC2 instance
+  hosts: 35.177.173.243
   gather_facts: False
+  vars:
+    ansible_user: admin
+    ansible_ssh_private_key_file: ~/.aws/infra-keypair1.pem
 
   tasks:
     - name: Stop EC2 instance
-      ec2:
-        instance_ids: "i-0489b0f9dbc117ebf"
-        state: stopped
-        region: "eu-west-2"
-        aws_access_key: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
-        aws_secret_key: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
-      register: ec2_instance_state
-
-    - name: Output instance state
-      debug:
-        var: ec2_instance_state
+      shell: aws ec2 stop-instances --instance-ids i-0985a302cfe7aeebe --region eu-west-2 --output text
+      register: stop_output
+      args:
+        executable: /bin/bash
